@@ -47,7 +47,8 @@ import { IconDirective } from '@coreui/icons-angular';
     RowComponent,
     RowDirective,
     TooltipDirective
-  ]
+  ],
+  styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   readonly #router = inject(Router);
