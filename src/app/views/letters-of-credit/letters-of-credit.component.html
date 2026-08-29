@@ -1,0 +1,72 @@
+<c-row>
+  <c-col xs="12">
+    <c-card class="mb-4">
+
+      <!-- Card Header -->
+      <c-card-header>
+        <strong>Letters of Credit</strong>
+        <small class="ms-2 text-muted">HSBC Trade Finance</small>
+      </c-card-header>
+
+      <c-card-body>
+
+        <!-- Loading spinner -->
+        @if (isLoading) {
+          <div class="text-center py-4">
+            <c-spinner color="primary"></c-spinner>
+            <p class="mt-2 text-muted">Loading letters of credit...</p>
+          </div>
+        }
+
+        <!-- Error message -->
+        @if (errorMessage) {
+          <div class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+        }
+
+        <!-- Data table -->
+        @if (!isLoading && lettersOfCredit.length > 0) {
+          <table cTable hover responsive>
+            <thead>
+              <tr>
+                <th>Reference No.</th>
+                <th>Applicant</th>
+                <th>Beneficiary</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (lc of lettersOfCredit; track lc.id) {
+                <tr>
+                  <td>{{ lc.referenceNumber }}</td>
+                  <td>{{ lc.applicantName }}</td>
+                  <td>{{ lc.beneficiaryName }}</td>
+                  <td>{{ lc.amount | number }}</td>
+                  <td>{{ lc.currency }}</td>
+                  <td>{{ lc.expiryDate }}</td>
+                  <td>
+                    <c-badge [color]="getStatusBadgeColor(lc.status)">
+                      {{ lc.status }}
+                    </c-badge>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+
+        <!-- Empty state -->
+        @if (!isLoading && lettersOfCredit.length === 0 && !errorMessage) {
+          <div class="text-center py-4 text-muted">
+            <p>No letters of credit found.</p>
+          </div>
+        }
+
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
