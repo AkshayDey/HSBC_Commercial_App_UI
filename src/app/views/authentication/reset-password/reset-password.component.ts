@@ -25,6 +25,7 @@ import {
     RowComponent
   ],
   templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css'],
   host: {
     class: 'bg-body-tertiary min-vh-100 d-flex flex-row align-items-center'
   }
