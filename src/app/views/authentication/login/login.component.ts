@@ -45,6 +45,7 @@ import { IconDirective } from '@coreui/icons-angular';
     RowComponent,
     RowDirective,
     TooltipDirective
-  ]
+  ],
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {}
