@@ -14,6 +14,15 @@ export const routes: Routes = [
     // },
     // This is the Default Layout Component that will be used for the entire application. 
     // It contains the header, sidebar, and footer components. The content of the page will be rendered in the <router-outlet> of this component.
+    
+    
+    path: 'dashboard',
+    loadComponent: () => import('./views/dashboard/dashboard.component').then(m => m.DashboardComponent),
+    data: {
+    title: 'Dashboard'
+    }
+  },
+  {
     path: '',
     loadComponent: () => import('./views/authentication/login/login.component').then((m) => m.LoginComponent),
     data: {
