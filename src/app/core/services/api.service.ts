@@ -24,6 +24,11 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  login(payload: { loginId: string; password: string }): Observable<any> {
+  return this.http.post(`${this.baseUrl}/auth/login`, payload)
+    .pipe(catchError(this.handleError));
+}
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred.';
     if (error.status === 0) {

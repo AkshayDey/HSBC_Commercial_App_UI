@@ -9,11 +9,11 @@
         <c-card class="login-card p-4">
           <c-card-body class="d-flex flex-column gap-4">
             <h2 class="h5 text-center mb-0">Login to your account</h2>
-            <form cForm cRow class="gy-3" autocomplete = "off">
+            <form cForm cRow class="gy-3" autocomplete = "off" [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
               <c-col xs="12">
                 <label cLabel for="loginId">Login ID</label>
                 <!-- <input autocomplete="email" cFormControl id="email" placeholder="your@email.com" type="email" /> -->
-                <input autocomplete="off" cFormControl id="loginId" placeholder="Enter your login ID" type="text" />
+                <input autocomplete="off" cFormControl id="loginId" formControlName="loginId" placeholder="Enter your login ID" type="text" />
               </c-col>
               <c-col xs="12">
                 <div class="d-flex justify-content-between">
@@ -21,7 +21,7 @@
                   <a routerLink="/authentication/reset-password">I forgot password</a>
                 </div>
                 <c-input-group>
-                  <input autocomplete="off" cFormControl id="password" placeholder="Your password" type="password" />
+                  <input autocomplete="off" cFormControl id="password" formControlName="password" placeholder="Your password" type="password" />
                   <span cInputGroupText>
                     <button cButton cTooltip="Show password" class="p-0 link-secondary" color="link" type="button">
                       <svg cIcon name="eye" size="sm"></svg>
