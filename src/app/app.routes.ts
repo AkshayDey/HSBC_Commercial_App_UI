@@ -7,28 +7,8 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    // path: '',
-    // loadComponent: () => import('./layout').then(m => m.DefaultLayoutComponent),
-    // data: {
-    //   title: 'Home'
-    // },
-    // This is the Default Layout Component that will be used for the entire application. 
-    // It contains the header, sidebar, and footer components. The content of the page will be rendered in the <router-outlet> of this component.
-    
-    
-    path: 'dashboard',
-    loadComponent: () => import('./views/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    data: {
-    title: 'Dashboard'
-    }
-  },
-  {
     path: '',
-    loadComponent: () => import('./views/authentication/login/login.component').then((m) => m.LoginComponent),
-    data: {
-      title: 'Login'
-    }
-   ,
+    loadComponent: () => import('./layout').then(m => m.DefaultLayoutComponent),
     children: [
       {
         path: 'dashboard',
@@ -64,5 +44,7 @@ export const routes: Routes = [
     path: 'error-pages',
     loadChildren: () => import('./views/error-pages/routes').then((m) => m.routes)
   },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: 'authentication' }
 ];
+
+
