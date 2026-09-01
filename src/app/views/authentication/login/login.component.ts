@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import {
@@ -20,7 +25,7 @@ import {
   InputGroupTextDirective,
   RowComponent,
   RowDirective,
-  TooltipDirective
+  TooltipDirective,
 } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
 import { ToastrService } from 'ngx-toastr';
@@ -29,7 +34,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-login',
   templateUrl: './login.component.html',
   host: {
-    class: 'bg-body-tertiary min-vh-100 d-flex flex-row align-items-center'
+    class: 'bg-body-tertiary min-vh-100 d-flex flex-row align-items-center',
   },
   imports: [
     ButtonDirective,
@@ -50,27 +55,37 @@ import { ToastrService } from 'ngx-toastr';
     RowComponent,
     RowDirective,
     TooltipDirective,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
   ],
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   toastr = inject(ToastrService);
   loginForm = new FormGroup({
     loginId: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+  ) {}
 
-   ngOnInit() {
+  ngOnInit() {
     // Clear any existing authentication tokens or session data on component initialization
     console.log('LoginComponent initialized. Clearing session data.');
   }
 
+  get loginIdControl() {
+    return this.loginForm.get('loginId');
+  }
+
+  get passwordControl() {
+    return this.loginForm.get('password');
+  }
+
   onSubmit() {
+    this.loginForm.markAllAsTouched();
     console.log('Login form submitted:', this.loginForm.value);
     if (!this.loginForm.valid) {
       this.toastr.warning('Please enter valid credentials');
@@ -84,7 +99,7 @@ export class LoginComponent {
     }
     const payload: { loginId: string; password: string } = {
       loginId,
-      password
+      password,
     };
     console.log('Login payload:', payload);
     this.apiService.login(payload).subscribe({
@@ -98,7 +113,7 @@ export class LoginComponent {
         this.toastr.error('Login failed');
         console.error('Login failed:', error);
         // Handle login error (e.g., show an error message to the user)
-      }
+      },
     });
   }
 }
