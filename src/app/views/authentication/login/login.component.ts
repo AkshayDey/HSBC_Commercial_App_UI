@@ -23,9 +23,7 @@ import {
   TooltipDirective
 } from '@coreui/angular';
 import { IconDirective } from '@coreui/icons-angular';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -52,20 +50,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     RowComponent,
     RowDirective,
     TooltipDirective,
-    ReactiveFormsModule,
-    NzButtonModule,
-    NzMessageService
+    ReactiveFormsModule
 
   ],
-  providers: [NzMessageService],
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  //private apiService = inject(ApiService);
- // private router = inject(Router);
-  private messageService = inject(NzMessageService); 
-
+  toastr = inject(ToastrService);
   loginForm = new FormGroup({
     loginId: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
@@ -78,22 +70,10 @@ export class LoginComponent {
     console.log('LoginComponent initialized. Clearing session data.');
   }
 
-  showSuccess(): void {
-    this.messageService.success('Login successful');
-  }
-
-  showError(): void {
-    this.messageService.error('Login failed');
-  }
-
-  showWarning(): void {
-    this.messageService.warning('Please enter valid credentials');
-  }
-
   onSubmit() {
     console.log('Login form submitted:', this.loginForm.value);
     if (!this.loginForm.valid) {
-      this.showWarning();
+      this.toastr.warning('Please enter valid credentials');
       return;
     }
     const loginId = this.loginForm.get('loginId')?.value;
@@ -102,27 +82,20 @@ export class LoginComponent {
     if (!loginId || !password) {
       return;
     }
-
     const payload: { loginId: string; password: string } = {
       loginId,
       password
     };
-
     console.log('Login payload:', payload);
-
-    // if(this.loginForm.valid) {
-    //   this.router.navigate(['/dashboard']);
-    // }
-
     this.apiService.login(payload).subscribe({
       next: (response) => {
-        this.showSuccess();
+        this.toastr.success('Login successful');
         console.log('Login successful:', response);
         // Navigate to the dashboard or another page after successful login
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
-        this.showError();
+        this.toastr.error('Login failed');
         console.error('Login failed:', error);
         // Handle login error (e.g., show an error message to the user)
       }
