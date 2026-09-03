@@ -24,11 +24,11 @@ export const navItems: INavData[] = [
     url: '/components',
     iconComponent: { name: 'cil-puzzle' },
     children: [
-      {
-        name: 'Accordion',
-        url: '/components/accordion',
-        icon: 'nav-icon-bullet'
-      },
+      // {
+      //   name: 'Accordion',
+      //   url: '/components/accordion',
+      //   icon: 'nav-icon-bullet'
+      // },
       {
         name: 'Alerts',
         url: '/components/alerts',
@@ -332,6 +332,7 @@ export const navItems: INavData[] = [
       }
     ]
   },
+  /*
   {
     name: 'Icons',
     iconComponent: { name: 'cil-star' },
@@ -371,6 +372,7 @@ export const navItems: INavData[] = [
     title: true,
     name: 'Extras'
   },
+  */
   {
     name: 'Authentication',
     url: '/authentication',
@@ -414,6 +416,7 @@ export const navItems: INavData[] = [
       }
     ]
   },
+  /*
   {
     name: 'Error pages',
     url: '/error-pages',
@@ -447,4 +450,5 @@ export const navItems: INavData[] = [
       class: 'text-danger'
     }
   }
+    */
 ];
